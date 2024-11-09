@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Square from "./square.component"
 const GameAreaComponent = ()=>{
     const [ num , setNum ] = useState([ Array(9).fill(null) ])
@@ -17,8 +17,13 @@ const GameAreaComponent = ()=>{
         [0,4,8],
         [2,4,6],
     ]
-
-    console.log(num);
+    const [ Winner, setWinner ] = useState(null);
+    
+    useEffect(()=>{
+        console.log("latest array is", num);
+        checkWinner()
+        
+    },[ num ])
     const handleClick = (squareIndex )=>{
         console.log(`clicked square index is ${ squareIndex }`)
         //change square box value according to player turn.
@@ -26,11 +31,8 @@ const GameAreaComponent = ()=>{
         //Set value of current turn player in array
         newArr[ squareIndex ] = turn;
         setNum( newArr )
-        if(!checkWinner())
-        {
+        
         setTurn( ( turn === "X" ) ? "O" : "X" )
-        }
-        //check winner
         
     }
 
@@ -42,9 +44,7 @@ const GameAreaComponent = ()=>{
             {
                 console.log("matched", WinnerConditions[i]);
                 console.log(`Player ${ num[WinnerConditions[i][0]] } is winner`);
-                return true;     
-            }else{
-                return false;
+                setWinner(`Player ${ num[WinnerConditions[i][0]] } is winner`)
             }
         }
     }
@@ -53,7 +53,7 @@ const GameAreaComponent = ()=>{
         setNum([ ...Array(9).fill(null) ])
     }
     return (
-        <>
+        <>{ ( Winner ) ? ( <h1>{ Winner }</h1> ) : (
             <div >
                 <button onClick={handleReset}>Reset Game</button>
                 <h2> { turn } : Your Turn </h2>
@@ -73,6 +73,7 @@ const GameAreaComponent = ()=>{
                     <Square value={num[8]} selectHandle={ ()=>{ handleClick(8)}} />
                 </div>
             </div>
+        )}
         </>
     )
 }
