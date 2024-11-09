@@ -42,9 +42,12 @@ const GameAreaComponent = ()=>{
             console.log(  WinnerConditions[i], num[WinnerConditions[i][0]], num[WinnerConditions[i][1]], num[WinnerConditions[i][2]])
             if( num[WinnerConditions[i][0]]  != null &&   num[WinnerConditions[i][1]]  != null &&  num[WinnerConditions[i][2]]  != null)
             {
+                if(num[WinnerConditions[i][0]] == num[WinnerConditions[i][1]] && num[WinnerConditions[i][0]] == num[WinnerConditions[i][1]])
+                {
                 console.log("matched", WinnerConditions[i]);
                 console.log(`Player ${ num[WinnerConditions[i][0]] } is winner`);
                 setWinner(`Player ${ num[WinnerConditions[i][0]] } is winner`)
+                }
             }
         }
     }
