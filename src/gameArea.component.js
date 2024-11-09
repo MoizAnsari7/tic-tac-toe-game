@@ -14,9 +14,14 @@ const GameAreaComponent = ()=>{
         setNum( newArr )
         setTurn( ( turn === "X" ) ? "O" : "X" )
     }
+
+    const handleReset = ()=>{
+        setNum([ ...Array(9).fill(null) ])
+    }
     return (
         <>
             <div >
+                <button onClick={handleReset}>Reset Game</button>
                 <h2> { turn } : Your Turn </h2>
                 <div style={{  display : "flex", justifyContent: "cnenter", alignItems : "center" }} className="row">
                     <Square value={num[0]} selectHandle={ ()=>{ handleClick(0)}}/>
